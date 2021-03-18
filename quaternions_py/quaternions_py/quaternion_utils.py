@@ -31,8 +31,8 @@ class Quaternion:
         Computes the skew symmetric matrix of a quaternion
         :return: q_M: np.array, skew symmetric matrix of the quaternion
         """
-        q_M = np.array([[q[0], q[1], q[2], q[3]],
-                        [q[1], q[0], q[3], q[2]],
-                        [q[2], q[3], q[0], q[1]],
-                        [q[3], q[2], q[1], q[0]]])
+        q_M = np.array([[q[0], -q[1], -q[2], -q[3]],
+                        [q[1], q[0], -q[3], q[2]],
+                        [q[2], q[3], q[0], -q[1]],
+                        [q[3], -q[2], q[1], q[0]]])
         return q_M
