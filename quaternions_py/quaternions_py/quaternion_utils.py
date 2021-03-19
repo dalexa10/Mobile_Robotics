@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 
 class Quaternion:
@@ -8,6 +9,7 @@ class Quaternion:
         self.q_conj = self.conjugate()
         self.q_norm = self.norm()
         self.q_inv = self.q_conj / self.q_norm
+        self.q_Euler = self.q2Euler()
 
     def conjugate(self):
         """
@@ -24,6 +26,31 @@ class Quaternion:
         """
         q_norm = np.sqrt(self.q[0]**2 + self.q[1]**2 + self.q[2]**2 + self.q[3]**2)
         return q_norm
+
+    def q2Euler(self, deg=True):
+        """
+        Method that converts the quaternion into an Euler (Aerospace sequence)
+        :param deg: boolean, if True, the Euler sequence is in degrees (by default)
+        :return: np.array: [psi, theta, phi]
+        """
+
+        m11 = 2 * self.q[0]**2 + 2 * self.q[1]**2 - 1
+        m12 = 2 * self.q[1] * self.q[2] + 2 * self.q[0] * self.q[3]
+        m13 = 2 * self.q[1] * self.q[3] - 2 * self.q[0] * self.q[2]
+        m23 = 2 * self.q[2] * self.q[3] + 2 * self.q[0] * self.q[1]
+        m33 = 2 * self.q[0]**2 + 2 * self.q[3]**2 - 1
+
+        psi = math.atan2(m12, m11)
+        theta = math.asin(-m13)
+        phi = math.atan2(m23, m33)
+
+        q_Euler = np.array([psi, theta, phi])
+
+        if deg:
+            q_Euler = np.array([math.degrees(q_e) for q_e in q_Euler])
+
+        return q_Euler
+
 
     @staticmethod
     def skew(q):
