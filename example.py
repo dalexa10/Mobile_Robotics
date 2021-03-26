@@ -20,9 +20,12 @@ Euler_database = [[0, 0, 0],
                   [0, -60, 0],
                   [0, 0, 80],
                   [0, 0, -80],
-                  [30, 20, -54]]
+                  [30, 20, -54]]  # List of Euler angles [phi, theta, psi] to be converted
 
-Q_databse = [euler2quat(Euler_i).q for Euler_i in Euler_database]
+Q_databse = [euler2quat(Euler_i, deg=True).q for Euler_i in Euler_database]  # Quaternions list
+
+r_test = R.from_euler('zyx', [30, 20, -54])
+print(r_test.as_quat())
 
 # Transformation from quaternions to Euler angles
 Q_databse2 = [[1, 0, 0, 0],
@@ -30,15 +33,12 @@ Q_databse2 = [[1, 0, 0, 0],
               [0.9659, 0, 0, -0.2588],
               [0.8660, 0, 0.5, 0],
               [0.8660, 0, -0.5, 0],
-              [0.766, 0.6428, 0, 0],
+              [0.7660, 0.6428, 0, 0],
               [0.7660, -0.6428, 0, 0],
-              [0.8272, -0.4713, 0.0337, 0.3033]]
+              [0.8272, -0.4713, 0.0337, 0.3033]]  # List of quaternions to be converted
 
 
-Euler_database2 = [Quaternion(q_i).q_Euler for q_i in Q_databse]
-
-
-
+Euler_database2 = [Quaternion(q_i).q_Euler for q_i in Q_databse]  # Euler angles list [phi, theta, psi]
 
 
 # Quaternion to Euler using SciPy

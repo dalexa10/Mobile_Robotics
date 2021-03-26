@@ -12,18 +12,18 @@ def euler2quat(euler_seq, deg=True):
     :return: Quaternion instance, q
     """
     if deg:
-        psi = math.radians(euler_seq[0])
+        phi = math.radians(euler_seq[0])
         theta = math.radians(euler_seq[1])
-        phi = math.radians(euler_seq[2])
+        psi = math.radians(euler_seq[2])
     else:
-        psi = euler_seq[0]
+        phi = euler_seq[0]
         theta = euler_seq[1]
-        phi = euler_seq[2]
+        psi = euler_seq[2]
 
-    q0 = np.cos(psi/2) * np.cos(theta/2) * np.cos(phi/2) + np.sin(psi/2) * np.sin(theta/2) * np.sin(theta/2)
-    q1 = np.cos(psi/2) * np.cos(theta/2) * np.sin(phi/2) - np.sin(psi/2) * np.sin(theta/2) * np.cos(theta/2)
-    q2 = np.cos(psi/2) * np.sin(theta/2) * np.cos(phi/2) + np.sin(psi/2) * np.cos(theta/2) * np.sin(theta/2)
-    q3 = np.sin(psi/2) * np.cos(theta/2) * np.cos(phi/2) - np.cos(psi/2) * np.sin(theta/2) * np.sin(theta/2)
+    q0 = np.cos(psi/2) * np.cos(theta/2) * np.cos(phi/2) + np.sin(psi/2) * np.sin(theta/2) * np.sin(phi/2)
+    q1 = np.cos(psi/2) * np.cos(theta/2) * np.sin(phi/2) - np.sin(psi/2) * np.sin(theta/2) * np.cos(phi/2)
+    q2 = np.cos(psi/2) * np.sin(theta/2) * np.cos(phi/2) + np.sin(psi/2) * np.cos(theta/2) * np.sin(phi/2)
+    q3 = np.sin(psi/2) * np.cos(theta/2) * np.cos(phi/2) - np.cos(psi/2) * np.sin(theta/2) * np.sin(phi/2)
 
     q = Quaternion([q0, q1, q2, q3])
 

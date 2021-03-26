@@ -31,7 +31,7 @@ class Quaternion:
         """
         Method that converts the quaternion into an Euler (Aerospace sequence)
         :param deg: boolean, if True, the Euler sequence is in degrees (by default)
-        :return: np.array: [psi, theta, phi]
+        :return: np.array: [phi, theta, psi]
         """
 
         m11 = 2 * self.q[0]**2 + 2 * self.q[1]**2 - 1
@@ -44,7 +44,7 @@ class Quaternion:
         theta = math.asin(-m13)
         phi = math.atan2(m23, m33)
 
-        q_Euler = np.array([psi, theta, phi])
+        q_Euler = np.array([phi, theta, psi])
 
         if deg:
             q_Euler = np.array([math.degrees(q_e) for q_e in q_Euler])
